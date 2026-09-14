@@ -16,9 +16,162 @@ html{scroll-behavior:smooth}
 body{margin:0;background:#111313;color:#fff;font-family:Arial,Helvetica,sans-serif}
 a{color:inherit;text-decoration:none}
 a:hover{color:inherit}
+button,input,textarea{font:inherit}
+:focus-visible{outline:3px solid #4E8FC7;outline-offset:2px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition-duration:.01ms!important}}
 </style>
 </helmet>
 
+<sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+<div style="background:#fff;color:#0f1c2c">
+  <header style="position:fixed;top:0;left:0;right:0;height:68px;z-index:40;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(20px,5.5vw,24px);background:#fff;border-bottom:1px solid #D8DDE1">
+    <a href="#m-home" onClick="{{ closeMenu }}" aria-label="Dr. Zeph home" style="display:flex;align-items:baseline;padding:12px 0">
+      <span style="font:900 29px/1 Arial,Helvetica,sans-serif;letter-spacing:-2px;color:#112238">DR.</span>
+      <span style="font:900 29px/1 Arial,Helvetica,sans-serif;letter-spacing:-2px;color:#4E8FC7">ZEPH</span>
+    </a>
+    <button ref="{{ menuBtnRef }}" onClick="{{ toggleMenu }}" aria-label="Navigation menu" aria-expanded="{{ menuExpanded }}" aria-controls="m-nav" style="width:46px;height:46px;border:0;background:none;padding:0;display:flex;flex-direction:column;justify-content:center;align-items:flex-end;gap:5px;cursor:pointer">
+      <span style="display:block;width:24px;height:2px;background:#112238"></span>
+      <span style="display:block;width:24px;height:2px;background:#112238"></span>
+      <span style="display:block;width:24px;height:2px;background:#112238"></span>
+    </button>
+  </header>
+
+  <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+    <nav id="m-nav" aria-label="Mobile navigation" style="position:fixed;top:68px;left:0;right:0;bottom:0;z-index:38;background:#fff;padding:8px clamp(20px,5.5vw,24px) 40px;overflow-y:auto">
+      <sc-for list="{{ mobileLinks }}" as="l" hint-placeholder-count="6">
+        <a href="{{ l.href }}" onClick="{{ closeMenu }}" style="display:flex;align-items:center;justify-content:space-between;min-height:56px;padding:14px 2px;border-bottom:1px solid #D8DDE1;font:700 20px/1.3 Georgia,'Times New Roman',serif;color:#174D81">{{ l.label }}<span style="color:#7c8a98;font-size:16px">→</span></a>
+      </sc-for>
+      <a href="mailto:hello@drzeph.com?subject=Working With Dr. Zeph" onClick="{{ closeMenu }}" style="display:flex;align-items:center;justify-content:center;gap:16px;margin-top:32px;min-height:48px;padding:15px 24px;border-radius:999px;background:#145B93;color:#fff;font:700 16px Arial,Helvetica,sans-serif">Work With Dr. Zeph <span>→</span></a>
+    </nav>
+  </sc-if>
+
+  <section id="m-home" data-screen-label="Mobile Hero" style="position:relative;margin-top:68px;min-height:calc(100svh - 68px);display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;background:#101820">
+    <div role="img" aria-label="Portrait of Dr. Zeph" style="position:absolute;top:0;left:0;right:0;bottom:0;background:#101820 url('assets/hero-v2-trim.png') 50% bottom/auto 100% no-repeat"></div>
+    <div style="position:relative;z-index:2;flex:0 0 auto;width:100%;padding:84px clamp(20px,5.5vw,24px) 40px;background:linear-gradient(180deg,rgba(16,24,32,0) 0,rgba(16,24,32,.58) 84px,rgba(16,24,32,.72) 100%)">
+      <div style="width:100%;max-width:410px">
+        <h1 style="font:400 clamp(40px,11.5vw,54px)/1.04 Georgia,'Times New Roman',serif;letter-spacing:-1px;margin:0 0 14px;color:#fff;text-wrap:pretty;text-shadow:0 2px 18px rgba(16,24,32,.75)">Resilience<br>for Real Life.</h1>
+        <p style="font:700 19px/1.35 Arial,Helvetica,sans-serif;margin:0 0 14px;color:#fff;text-shadow:0 1px 12px rgba(16,24,32,.8)">Tools. Truth. Transformation.</p>
+        <p style="font-size:16px;line-height:1.55;color:#fff;margin:0;text-shadow:0 1px 12px rgba(16,24,32,.8)">Helping individuals, families, leaders, churches, organizations, and communities become strong enough to weather life's storms.</p>
+        <a href="#m-services" style="display:flex;align-items:center;justify-content:space-between;gap:20px;margin-top:24px;min-height:48px;padding:15px 26px;border-radius:999px;background:#145B93;color:#fff;font:700 16px Arial,Helvetica,sans-serif">Work With Dr. Zeph <span>→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section id="m-about" data-screen-label="Mobile About" style="background:#F5F6F8;scroll-margin-top:68px">
+    <div style="padding:56px max(clamp(20px,5.5vw,24px),calc((100% - 640px) / 2)) 48px">
+      <h2 style="font:400 clamp(36px,10.5vw,44px)/1.1 Georgia,'Times New Roman',serif;letter-spacing:-1px;color:#174D81;margin:0 0 16px">About<br>Dr. Zeph</h2>
+      <p style="font:700 22px/1.3 Georgia,'Times New Roman',serif;color:#112238;margin:0 0 24px">Educator. Speaker. Author.<br>Change Agent.</p>
+      <p style="font-size:16px;line-height:1.6;color:#112238;margin:0 0 16px">My work lives at the intersection of relationships, resilience, mental health, faith, and community development.</p>
+      <p style="font-size:16px;line-height:1.6;color:#112238;margin:0">Through education, speaking, training, coaching, and organizational development, I help people build stronger internal foundations, healthier relationships, and communities equipped to flourish.</p>
+      <a href="#m-organizations" style="display:inline-flex;align-items:center;gap:16px;margin-top:32px;min-height:48px;padding:15px 26px;border-radius:999px;background:#145B93;color:#fff;font:700 16px Arial,Helvetica,sans-serif">Learn More <span>→</span></a>
+    </div>
+    <div role="img" aria-label="Dr. Zeph speaking" style="height:340px;background:#101820 url('assets/hero.jpg') 50% 12%/cover no-repeat"></div>
+    <blockquote style="margin:0;padding:48px max(clamp(20px,5.5vw,24px),calc((100% - 640px) / 2));background:#101820;color:#fff">
+      <span style="font:72px/.4 Georgia,serif;color:#4E8FC7;display:block" aria-hidden="true">“</span>
+      <p style="font:400 22px/1.4 Georgia,'Times New Roman',serif;margin:24px 0 16px">Strong people build strong relationships. Strong relationships build strong communities.</p>
+      <cite style="font:normal 14px Arial,Helvetica,sans-serif;letter-spacing:1.2px;color:#fff">— DR. ZEPH</cite>
+    </blockquote>
+  </section>
+
+  <section id="m-organizations" data-screen-label="Mobile Storm Proof" style="background:#101820;color:#fff;padding:56px max(clamp(20px,5.5vw,24px),calc((100% - 640px) / 2)) 48px;scroll-margin-top:68px">
+    <p style="font:700 13px Arial,Helvetica,sans-serif;letter-spacing:2.4px;color:#9cc4e6;margin:0 0 20px">MY ORGANIZATIONS · 01</p>
+    <h2 style="font:400 clamp(38px,11vw,44px)/1.08 Georgia,'Times New Roman',serif;letter-spacing:-1px;margin:0 0 16px">Storm<br>Proof</h2>
+    <p style="font:700 22px/1.3 Georgia,'Times New Roman',serif;margin:0 0 24px;color:#fff">Mindset. Strategy. Strength.</p>
+    <p style="font-size:16px;line-height:1.6;color:#fff;margin:0 0 32px">STORM PROOF Relationships is about improving the relationship with yourself, others, the world around you, and God — so you can withstand life's storms and come out stronger.</p>
+    <div style="display:flex;flex-direction:column;gap:1px;background:rgba(255,255,255,.2);margin-bottom:32px">
+      <sc-for list="{{ pillars }}" as="p" hint-placeholder-count="4">
+        <div style="background:#101820;padding:24px 2px">
+          <span style="font:700 13px Arial,Helvetica,sans-serif;letter-spacing:2px;color:#9cc4e6">{{ p.n }}</span>
+          <h3 style="font:700 20px/1.25 Georgia,'Times New Roman',serif;margin:12px 0 8px">STORM PROOF {{ p.title }}</h3>
+          <p style="font-size:16px;line-height:1.55;color:#fff;margin:0">{{ p.body }}</p>
+        </div>
+      </sc-for>
+    </div>
+    <a href="mailto:hello@drzeph.com?subject=STORM PROOF Inquiry" style="display:inline-flex;align-items:center;gap:16px;min-height:48px;padding:15px 26px;border-radius:999px;background:#145B93;color:#fff;font:700 16px Arial,Helvetica,sans-serif;margin-bottom:36px">Learn More <span>→</span></a>
+    <blockquote style="margin:0">
+      <p style="font:italic 18px/1.5 Georgia,'Times New Roman',serif;color:#fff;margin:0 0 10px">“You can't control the storm, but you can become Storm Proof.”</p>
+      <cite style="font:normal 14px Arial,Helvetica,sans-serif;letter-spacing:1.2px;color:#c3d4e2">— DR. ZEPH</cite>
+    </blockquote>
+  </section>
+
+  <section id="m-rooted" data-screen-label="Mobile ROOTED" style="background:#101D13;color:#fff;padding:56px max(clamp(20px,5.5vw,24px),calc((100% - 640px) / 2)) 48px;scroll-margin-top:68px">
+    <img src="assets/rooted-logo.png" alt="ROOTED International Institute for Family &amp; Community Mental Health" width="280" height="280" loading="lazy" decoding="async" style="display:block;width:100%;max-width:280px;margin:0 auto 28px;height:auto">
+    <p style="font:700 22px/1.35 Georgia,'Times New Roman',serif;text-align:center;margin:0 0 24px;color:#fff">Stronger People.<br>Brighter Communities.</p>
+    <p style="font-size:16px;line-height:1.6;color:#fff;margin:0 0 32px">ROOTED International Institute for Family &amp; Community Mental Health strengthens community mental health through Resilience Oriented Outreach, Training, Education and Development for organizations and frontline workers.</p>
+    <div style="display:flex;flex-direction:column;gap:1px;background:rgba(255,255,255,.2)">
+      <sc-for list="{{ rooted }}" as="r" hint-placeholder-count="5">
+        <div style="background:#101D13;padding:24px 2px">
+          <b style="font:700 24px Georgia,'Times New Roman',serif;color:#A8CE85">{{ r.letter }}</b>
+          <h3 style="font:700 14px Arial,Helvetica,sans-serif;letter-spacing:1.4px;margin:10px 0 8px;color:#fff">{{ r.title }}</h3>
+          <p style="font-size:16px;line-height:1.55;color:#fff;margin:0">{{ r.body }}</p>
+        </div>
+      </sc-for>
+    </div>
+    <a href="mailto:hello@drzeph.com?subject=ROOTED Inquiry" style="display:flex;align-items:center;justify-content:center;gap:16px;margin-top:32px;min-height:48px;padding:15px 26px;border-radius:999px;background:#46543A;color:#fff;font:700 16px Arial,Helvetica,sans-serif">Explore ROOTED <span>→</span></a>
+  </section>
+
+  <section id="m-services" data-screen-label="Mobile Services" style="background:#fff;padding:56px max(clamp(20px,5.5vw,24px),calc((100% - 640px) / 2)) 48px;scroll-margin-top:68px">
+    <h2 style="font:400 clamp(36px,10.5vw,44px)/1.1 Georgia,'Times New Roman',serif;letter-spacing:-1px;color:#174D81;margin:0 0 16px">Speaking<br>&amp; Services</h2>
+    <p style="font:700 22px/1.3 Georgia,'Times New Roman',serif;color:#112238;margin:0 0 24px">Inspiration. Insight. Action.</p>
+    <p style="font-size:16px;line-height:1.6;color:#112238;margin:0 0 32px">Dr. Zeph delivers powerful, engaging work that moves people from awareness to action — whether it's a school, church, organization, or community event.</p>
+    <div style="display:flex;flex-direction:column;gap:1px;background:#D8DDE1;border-top:1px solid #D8DDE1;border-bottom:1px solid #D8DDE1">
+      <sc-for list="{{ services }}" as="s" hint-placeholder-count="4">
+        <a href="{{ s.href }}" style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;background:#fff;min-height:48px;padding:24px 2px">
+          <span style="min-width:0">
+            <b style="display:block;font:700 22px Georgia,'Times New Roman',serif;color:#174D81;margin-bottom:8px">{{ s.title }}</b>
+            <span style="display:block;font-size:16px;line-height:1.55;color:#112238">{{ s.body }}</span>
+          </span>
+          <span style="color:#174D81;font-size:18px;padding-top:6px" aria-hidden="true">→</span>
+        </a>
+      </sc-for>
+    </div>
+    <a href="mailto:hello@drzeph.com?subject=Speaking Inquiry" style="display:flex;align-items:center;justify-content:center;gap:16px;margin-top:32px;min-height:48px;padding:15px 26px;border-radius:999px;background:#145B93;color:#fff;font:700 16px Arial,Helvetica,sans-serif">Book Dr. Zeph <span>→</span></a>
+  </section>
+
+  <section id="m-content" data-screen-label="Mobile Content" style="background:#F5F6F8;color:#112238;padding:56px max(clamp(20px,5.5vw,24px),calc((100% - 640px) / 2)) 48px;scroll-margin-top:68px">
+    <h2 style="font:400 clamp(36px,10.5vw,44px)/1.1 Georgia,'Times New Roman',serif;letter-spacing:-1px;color:#174D81;margin:0 0 16px">Ideas for stronger people.</h2>
+    <p style="font-size:16px;line-height:1.6;color:#112238;margin:0 0 32px">Conversations and resources on relationships, resilience, family, faith, mental health, leadership, and community.</p>
+    <div style="display:flex;flex-direction:column;gap:1px;background:#D8DDE1;border-top:1px solid #D8DDE1;border-bottom:1px solid #D8DDE1">
+      <sc-for list="{{ content }}" as="c" hint-placeholder-count="4">
+        <div style="background:#F5F6F8;padding:24px 2px">
+          <span style="font:700 13px Arial,Helvetica,sans-serif;letter-spacing:1.6px;color:#174D81">{{ c.kicker }}</span>
+          <b style="display:block;font:700 22px Georgia,'Times New Roman',serif;color:#174D81;margin:12px 0 8px">{{ c.title }}</b>
+          <span style="display:block;font-size:16px;line-height:1.55;color:#112238">{{ c.body }}</span>
+        </div>
+      </sc-for>
+    </div>
+    <p style="font-size:14px;line-height:1.5;color:#112238;margin:24px 0 0">Videos, articles, podcast episodes, and resources are in production. <a href="mailto:hello@drzeph.com?subject=Notify me about new content" style="color:#174D81;font-weight:700;text-decoration:underline">Ask to be notified</a> when they publish.</p>
+  </section>
+
+  <section id="m-contact" data-screen-label="Mobile Contact" style="background:#fff;padding:56px max(clamp(20px,5.5vw,24px),calc((100% - 640px) / 2)) 48px;scroll-margin-top:68px">
+    <h2 style="font:400 clamp(36px,10.5vw,44px)/1.1 Georgia,'Times New Roman',serif;letter-spacing:-1px;color:#174D81;margin:0 0 16px">Let's Connect</h2>
+    <p style="font:700 22px/1.3 Georgia,'Times New Roman',serif;color:#112238;margin:0 0 24px">Start the Conversation.</p>
+    <p style="font-size:16px;line-height:1.6;color:#112238;margin:0 0 32px">Have a question, event inquiry, or just want to say hello? I'd love to hear from you.</p>
+    <form name="contact" method="POST" data-netlify="true" style="display:flex;flex-direction:column;gap:24px">
+      <input type="hidden" name="form-name" value="contact">
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <label for="c-name" style="font:700 14px Arial,Helvetica,sans-serif;color:#112238">Name</label>
+        <input id="c-name" type="text" name="name" autocomplete="name" required style="width:100%;min-height:48px;padding:13px 16px;border:1px solid #D8DDE1;border-radius:8px;font-size:16px;color:#112238;background:#fff">
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <label for="c-email" style="font:700 14px Arial,Helvetica,sans-serif;color:#112238">Email</label>
+        <input id="c-email" type="email" name="email" autocomplete="email" required style="width:100%;min-height:48px;padding:13px 16px;border:1px solid #D8DDE1;border-radius:8px;font-size:16px;color:#112238;background:#fff">
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <label for="c-message" style="font:700 14px Arial,Helvetica,sans-serif;color:#112238">Message</label>
+        <textarea id="c-message" name="message" rows="5" required style="width:100%;min-height:120px;padding:13px 16px;border:1px solid #D8DDE1;border-radius:8px;font-size:16px;line-height:1.5;color:#112238;background:#fff;resize:vertical"></textarea>
+      </div>
+      <button type="submit" style="display:flex;align-items:center;justify-content:center;gap:16px;min-height:48px;padding:15px 26px;border:0;border-radius:999px;background:#145B93;color:#fff;font:700 16px Arial,Helvetica,sans-serif;cursor:pointer">Send Message <span>→</span></button>
+    </form>
+    <p style="font-size:14px;line-height:1.55;color:#112238;margin:20px 0 0">Prefer email? Write to <a href="mailto:hello@drzeph.com" style="color:#174D81;font-weight:700;text-decoration:underline">hello@drzeph.com</a>.</p>
+    <p style="font:700 16px/1.4 Georgia,'Times New Roman',serif;color:#112238;margin:40px 0 10px">Stronger People. Brighter Tomorrows.</p>
+    <p style="font-size:14px;color:#112238;margin:0">© {{ year }} Dr. Zeph. All rights reserved.</p>
+  </section>
+</div>
+</sc-if>
+
+<sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+<div>
 <aside style="position:fixed;top:0;left:0;bottom:0;width:292px;background:#0d0f10;border-right:1px solid rgba(255,255,255,.08);z-index:20;padding:42px 30px 28px;display:flex;flex-direction:column">
   <a href="#home" style="display:block;margin-bottom:55px">
     <div style="display:flex"><span style="font:900 31px/1 Arial,Helvetica,sans-serif;letter-spacing:-2px">DR.</span><span style="font:900 31px/1 Arial,Helvetica,sans-serif;letter-spacing:-2px;color:#4e8fc7">ZEPH</span></div>
@@ -161,17 +314,43 @@ a:hover{color:inherit}
     <span>© {{ year }} DrZeph.com</span>
   </footer>
 </main>
+</div>
+</sc-if>
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  state = { open: 'about' };
+  state = { open: 'about', menuOpen: false, isMobile: false };
 
   groups = [
-    { id: 'about', label: 'ABOUT DR. ZEPH', links: [['Who Is Dr. Zeph?', '#about'], ['My Story', '#story'], ['Mission & Vision', '#mission']] },
-    { id: 'companies', label: 'MY ORGANIZATIONS', links: [['STORM PROOF Relationships', '#stormproof'], ['ROOTED International', '#rooted']] },
-    { id: 'services', label: 'MY SERVICES', links: [['Speaking', '#services'], ['Training', '#services'], ['Consulting', '#services'], ['Coaching', '#services']] },
-    { id: 'content', label: 'MY CONTENT', links: [['Videos', '#content'], ['Articles', '#content'], ['Podcast', '#content'], ['Books & Resources', '#content']] },
+    { id: 'about', label: 'ABOUT DR. ZEPH', mobileHref: '#m-about', links: [['Who Is Dr. Zeph?', '#about'], ['My Story', '#story'], ['Mission & Vision', '#mission']] },
+    { id: 'companies', label: 'MY ORGANIZATIONS', mobileHref: '#m-organizations', links: [['STORM PROOF Relationships', '#stormproof'], ['ROOTED International', '#rooted']] },
+    { id: 'services', label: 'MY SERVICES', mobileHref: '#m-services', links: [['Speaking', '#services'], ['Training', '#services'], ['Consulting', '#services'], ['Coaching', '#services']] },
+    { id: 'content', label: 'MY CONTENT', mobileHref: '#m-content', links: [['Videos', '#content'], ['Articles', '#content'], ['Podcast', '#content'], ['Books & Resources', '#content']] },
   ];
+
+  menuBtn = React.createRef();
+
+  componentDidMount() {
+    this._mq = window.matchMedia('(max-width: 1023px)');
+    this._onChange = (e) => this.setState({ isMobile: e.matches, menuOpen: false });
+    this._mq.addEventListener('change', this._onChange);
+    this.setState({ isMobile: this._mq.matches });
+    this._onKey = (e) => {
+      if (e.key === 'Escape' && this.state.menuOpen) this.closeMenu();
+    };
+    document.addEventListener('keydown', this._onKey);
+  }
+  componentWillUnmount() {
+    if (this._mq) this._mq.removeEventListener('change', this._onChange);
+    document.removeEventListener('keydown', this._onKey);
+  }
+
+  closeMenu = () => {
+    this.setState({ menuOpen: false });
+    const btn = this.menuBtn.current;
+    if (btn) btn.focus();
+  };
+
   renderVals() {
     const open = this.state.open;
     const navGroups = this.groups.map((g, i) => ({
@@ -186,6 +365,21 @@ class Component extends DCLogic {
     const line = '1px solid #e2ddd3', sline = '1px solid #cdd0d0';
     return {
       year: new Date().getFullYear(),
+      isMobile: this.state.isMobile,
+      isDesktop: !this.state.isMobile,
+      menuOpen: this.state.menuOpen,
+      menuExpanded: this.state.menuOpen ? 'true' : 'false',
+      menuBtnRef: this.menuBtn,
+      toggleMenu: () => this.setState({ menuOpen: !this.state.menuOpen }),
+      closeMenu: this.closeMenu,
+      mobileLinks: [
+        { label: 'About Dr. Zeph', href: '#m-about' },
+        { label: 'STORM PROOF', href: '#m-organizations' },
+        { label: 'ROOTED International', href: '#m-rooted' },
+        { label: 'Speaking & Services', href: '#m-services' },
+        { label: 'Content', href: '#m-content' },
+        { label: "Let's Connect", href: '#m-contact' },
+      ],
       navGroups,
       pillars: [
         { n: '01', title: 'Living', body: 'Your relationship with yourself.' },
