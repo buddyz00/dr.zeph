@@ -1,4 +1,4 @@
 [build]
   base = "drzeph"
-  publish = "drzeph"
+  publish = "."
   command = ""
